@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_products
+    columns:
+      - name: product_id
+        data_tests:
+          - not_null
+          - unique
+      - name: sku
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_orders
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_stores
+    columns:
+      - name: store_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: product_cost_history
+    columns:
+      - name: sku
+        data_tests:
+          - not_null
+      - name: unit_cost_sar
+        data_tests:
+          - not_null
