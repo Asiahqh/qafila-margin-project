@@ -40,11 +40,19 @@ Supplier CSV files and SQLite data → raw tables (Python and DuckDB) → stagin
 
 ## Tests
 
-|Test|On|What it protects against|
-|-|-|-|
-|Unique order IDs<br />Not-null order IDs<br />Unique product IDs and SKUs<br />Not-null product IDs and SKUs<br />Unique and not-null store IDs<br />Not-null SKU and cost<br />SCD2 history checks<br />Margin reconciliation<br />Quarantine validation <br />Iceberg output checks|dbt staging<br />dbt staging<br />dbt staging<br />dbt staging<br />dbt staging<br />dbt silver<br />tools/check.py<br />tools/check.py<br />tools/check.py<br />tools/check.py|Duplicate orders<br />Missing order identifiers<br />Duplicate product records<br />Missing product information<br />Duplicate or missing stores<br />Incomplete cost history<br />Overlapping versions, invalid costs, and unnecessary versions <br />Incorrect revenue, costs, or margins<br />Invalid supplier rows entering calculations Missing tables or incorrect output columns|
+| Test | On | What it protects against |
+|---|---|---|
+| Unique order IDs | dbt staging | Duplicate orders |
+| Not-null order IDs | dbt staging | Missing order identifiers |
+| Unique product IDs and SKUs | dbt staging | Duplicate product records |
+| Not-null product IDs and SKUs | dbt staging | Missing product information |
+| Unique and not-null store IDs | dbt staging | Duplicate or missing stores |
+| Not-null SKU and cost | dbt silver | Incomplete cost history |
+| SCD2 history checks | tools/check.py | Overlapping versions, invalid costs, and unnecessary versions |
+| Margin reconciliation | tools/check.py | Incorrect revenue, costs, or margins |
+| Quarantine validation | tools/check.py | Invalid supplier rows entering calculations |
+| Iceberg output checks | tools/check.py | Missing tables or incorrect output columns |
 
-## 
 
 The pipeline passed 18/18 dbt operations, including 10 data tests. The official checker returned 22/22 checks passed on both the original dataset and a second dataset generated with seed 11.
 
